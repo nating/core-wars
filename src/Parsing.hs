@@ -1,59 +1,13 @@
+
+module Parsing where
+
 import System.IO  
 import Data.Char
 import Data.List.Utils as T
 import Control.Monad
 import DataTypes
-import System.Random
-import Data.Time.Clock
-import Data.Map
-
-fetty = parsePrograms ["program1.txt","program2.txt"]
-
-wap = "hello"
-
--------------------------------INSTRUCTIONS---------------------------------------------
-
-performInstruction :: Instruction -> IO ()
-performInstruction (OneFieldOp o f) = performOne o f
-performInstruction (TwoFieldOp o f1 f2) = performTwo o f1 f2
---performInstruction (NoFieldOp o) = performNo o
-
-performOne :: Op -> Field -> IO ()
-performOne DAT _ = print "Kill Process"
-performOne jmp a = print jmp
-performOne spl a = print spl
-
-performTwo :: Op -> Field -> Field -> IO ()
-performTwo o f1 f2 = print o
-
-
-
--------------------------------REDCODE---------------------------------------------
-
-{-
-
-wap :: Int -> (Int, StdGen)
-wap s = do
-         seed <- (read <$> formatTime defaultTimeLocale "%s" <$> getCurrentTime)
-	     return $ getRandomNumber (0,8000) seed
-
-getRandomNumber :: (Int,Int) -> Int -> (Int,StdGen)
-getRandomNumber (lo,hi) seed = randomR (lo,hi) (mkStdGen seed)
-
--}
-
-setMarsMemory :: Int -> [Program] -> Map Int Instruction
-setMarsMemory n p = union ( unions $ fmap createProgramMap p) $ createDatMemory n
-
-
-createDatMemory :: Int -> Map Int Instruction
-createDatMemory n = fromList $ zipWith makePair [1..n] $ replicate n (OneFieldOp DAT (Immediate 0))
-    where makePair a b = (a,b)
-
-createProgramMap :: Program -> Map Int Instruction
-createProgramMap p = fromList $ zipWith makePair [1..] $ p
-    where makePair a b = (a,b)
-
+import Control.Concurrent
+import Data.Maybe
 
 ---------------------------------PARSING--------------------------------------------
 

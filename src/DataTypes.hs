@@ -8,6 +8,10 @@ https://github.com/nating/core-wars/src/RedCode.hs
 
 module DataTypes where
 
+   
+import Data.Map
+import Control.Concurrent.STM
+
 data Op = DAT
          |MOV
          |ADD
@@ -20,10 +24,10 @@ data Op = DAT
          |SPL
          deriving (Show,Read)
 
-data Field = Direct Integer
-            |Indirect Integer
-            |Immediate Integer
-            |AutoDecrement Integer
+data Field = Direct Int
+            |Indirect Int
+            |Immediate Int
+            |AutoDecrement Int
             deriving (Show,Read)
 
 data Instruction = OneFieldOp Op Field
@@ -33,5 +37,9 @@ data Instruction = OneFieldOp Op Field
                   deriving (Show,Read)
 
 type Program = [Instruction]
+
+type Memory = Map Int Instruction
+
+type Mars = TVar Memory
 
 --TODO: There are time limits on the programs
