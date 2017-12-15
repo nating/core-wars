@@ -10,7 +10,7 @@ module MyRealMain where
 
 import Parsing
 import DataTypes
-import RedCode
+import Warrior
 import Data.Map as M
 import Control.Concurrent
 import Control.Concurrent.STM

@@ -1,12 +1,14 @@
 {-
-RedCode.hs
+Warrior.hs
 
 Created by Geoffrey Natin on 9/12/2017
 
-https://github.com/nating/core-wars/src/RedCode.hs
+This file contains functions used for making warriors take their turns in a game of core wars.
+
+https://github.com/nating/core-wars/src/Warrior.hs
 -}
 
-module RedCode where
+module Warrior where
 
 import DataTypes
 import Parsing
@@ -18,6 +20,9 @@ import System.Console.ANSI
 import Data.Hashable
 
 warriorWaitTime = 1000000 --1s. This slows the game down, so users can read what is going on in the game. Warriors wait before executing their next instruction.
+
+
+------------------------------------WARRIOR TURNS--------------------------------------------
 
 {-
     takeTurns:
@@ -90,12 +95,11 @@ performTwo i DJN f1 f2 m = djn i f1 f2 m
 performTwo i CMP f1 f2 m = cmp i f1 f2 m
 
 
-
 {-
     mov: 
 
     if the A-Field is immediate:
-         a DAT instruction is created in the target address and the value of the A field is placed in the new instructions B-field.
+         a DAT instruction is created in the instruction pointed at by the B-Field and the value of the A-field is placed in the new instructions B-field.
     else:
         copies the complete contents of the location indicated by the A field into the location indicated by the B field.
 -}
@@ -177,7 +181,7 @@ getFinalAddress :: Int -> Field -> Memory -> Int
 getFinalAddress i (Direct v) m        = getAddress i m
 getFinalAddress i (Immediate v) m     = getAddress i m
 getFinalAddress i (Indirect v) m      = getAddress (addrAdd i v m) m
-getFinalAddress i (AutoDecrement v) m = getAddress (addrAdd (i-1) v m) m
+getFinalAddress i (AutoDecrement v) m = getAddress ((addrAdd i v m)-1) m
 
 --get Address is used to get the index of the instruction that the instruction at this index is pointing to.
 getAddress :: Int -> Memory -> Int

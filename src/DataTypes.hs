@@ -3,6 +3,9 @@ DataTypes.hs
 
 Created by Geoffrey Natin on 9/12/2017
 
+This file defines different data types that represent what a game of Core Wars consist of.
+The elements of the MARS environment (Programs, Instructions and their parts)
+
 https://github.com/nating/core-wars/src/DataTypes.hs
 -}
 
@@ -12,6 +15,7 @@ import Data.Map
 import Control.Concurrent.STM
 import Control.Concurrent
 import System.Console.ANSI
+
 
 --------------------- Op ---------------------
 
@@ -50,7 +54,7 @@ instance Show Field where
 --------------------- Instruction ---------------------
 
 data Instruction = OneFieldOp Op Field
-                  |TwoFieldOp Op Field Field --TODO: The B field here is not supposed to be able to be immediate. I must fix this some how...
+                  |TwoFieldOp Op Field Field 
                   deriving(Eq)
 
 instance Show Instruction where
