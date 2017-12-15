@@ -57,7 +57,29 @@ instance Show Instruction where
   show (OneFieldOp o f)     = (show o)++" "++(show f)
   show (TwoFieldOp o f1 f2) = (show o)++" "++(show f1)++", "++(show f2)
 
+getFieldValue :: Field -> Int
+getFieldValue (Direct v)        = v
+getFieldValue (Indirect v)      = v
+getFieldValue (Immediate v)     = v
+getFieldValue (AutoDecrement v) = v
 
+getBField :: Instruction -> Field
+getBField (OneFieldOp _ b)   = b
+getBField (TwoFieldOp _ _ b) = b
+
+updateBField :: Instruction -> Int -> Instruction
+updateBField (OneFieldOp o (Direct b)) i          = (OneFieldOp o (Direct i))
+updateBField (OneFieldOp o (Immediate b)) i       = (OneFieldOp o (Immediate i))
+updateBField (OneFieldOp o (Indirect b)) i        = (OneFieldOp o (Indirect i))
+updateBField (OneFieldOp o (AutoDecrement b)) i   = (OneFieldOp o (AutoDecrement i))
+updateBField (TwoFieldOp o a (Direct b)) i        = (TwoFieldOp o a (Direct i))
+updateBField (TwoFieldOp o a (Immediate b)) i     = (TwoFieldOp o a (Immediate i))
+updateBField (TwoFieldOp o a (Indirect b)) i      = (TwoFieldOp o a (Indirect i))
+updateBField (TwoFieldOp o a (AutoDecrement b)) i = (TwoFieldOp o a (AutoDecrement i))
+
+getAField :: Instruction -> Field
+getAField (OneFieldOp _ a)   = a
+getAField (TwoFieldOp _ a _) = a
 
 
 --------------------- Types ---------------------
