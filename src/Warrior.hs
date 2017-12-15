@@ -99,9 +99,9 @@ performTwo i CMP f1 f2 m = cmp i f1 f2 m
     mov: 
 
     if the A-Field is immediate:
-         a DAT instruction is created in the instruction pointed at by the B-Field and the value of the A-field is placed in the new instructions B-field.
+         Creates a DAT instruction in the instruction pointed at by the B-Field and the value of the A-field is placed in the new instructions B-field.
     else:
-        copies the complete contents of the location indicated by the A field into the location indicated by the B field.
+        Copies the complete contents of the location indicated by the A field into the location indicated by the B field.
 -}
 mov :: Int -> Field -> Field -> Memory -> (Int,Memory)
 mov i (Immediate v) f2 m = (addrAdd i 1 m,newMem)
@@ -143,7 +143,7 @@ sub i f1 f2 m = (addrAdd i 1 m,newMem)
         newMem = M.insert targetAddress updatedInstruction m
 
 {-
-    jmz: jumps to the instruction indicated by the A-Field if the value indicated by the B-Field is zero, otherwise it does nothing.  
+    jmz: Jumps to the instruction indicated by the A-Field if the value indicated by the B-Field is zero, otherwise it does nothing.  
 -}
 jmz :: Int -> Field -> Field -> Memory -> (Int,Memory)
 jmz i f1 f2 m = if (getFieldValue f2)==0 
@@ -159,7 +159,7 @@ jmn i f1 f2 m = if (getFieldValue f2) /= 0
     else (addrAdd i 1 m,m)
 
 {-
-    djn: Decrements the value indicated by the BField and then jumps to the instruction indicated by the A-Field if the number indicated by the B-Field has become non-zero.
+    djn: Decrements the value indicated by the B-Field and then jumps to the instruction indicated by the A-Field if the number indicated by the B-Field has become non-zero.
 -}
 djn :: Int -> Field -> Field -> Memory -> (Int,Memory)
 djn i f1 f2 m = if ((getFieldValue f2)-1) /= 0 

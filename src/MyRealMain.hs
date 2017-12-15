@@ -3,6 +3,8 @@ Main.hs
 
 Created by Geoffrey Natin on 9/12/2017
 
+This file contains top level functions for running a game of core wars 
+
 https://github.com/nating/core-wars/src/Main.hs
 -}
 
@@ -18,9 +20,12 @@ import System.Console.ANSI
 import System.Random
 import Data.List as L
 
-timeLimit = 50000000             --50 seconds
+--timeLimit = 50000000             --50 seconds
+timeLimit = 500000
 memoryLength = 40                --Short for testing. (Standard is 8000)
 minWarriorStartPosDistance = 10  --Short for testing. (Standard is 1000)
+
+
 
 {-
 
@@ -41,7 +46,7 @@ The 'main':
    * prints out the final state of the MARS environment
 -}
 main1 = do
-       programs   <- parsePrograms ["program1.txt","program2.txt"]
+       programs   <- parsePrograms ["program1.txt"]
        positions  <- getWarriorPositions (length programs)
        marsTV     <- atomically $ newTVar $ setUpMarsMemory programs positions memoryLength
        logger     <- newEmptyMVar
@@ -56,23 +61,32 @@ main1 = do
        finalMem   <- atomically $ readTVar marsTV
        printMemoryNice finalMem Green
 
+
+
 --createThreads takes the starting positions of every warrior, the MARS environment (TVar), and the logger (MVar) and starts each warrior off to take their turns.
 createThreads :: [Int] -> Mars -> (MVar String) -> IO [ThreadId]
 createThreads i m l = mapM (\ x -> forkIO (takeTurns [x] m l)) i
+
+
 
 --setUpMarsMemory puts together the initialised memory and the memory positions of the programs, so that the game environment is initialised.
 setUpMarsMemory :: [Program] -> [Int] -> Int -> Memory
 setUpMarsMemory ps positions len = M.union ( createProgramMaps positions ps ) $ createDatMemory len
 
+
+
 --createDatMemory is used to create the DAT initialised memory for the start of a core wars game
 createDatMemory :: Int -> Memory
 createDatMemory n = fromList $ zip [1..n] $ replicate n (OneFieldOp DAT (Immediate 0))
+
+
 
 --createProgramMaps places programs into Memory locations at their starting positions.
 --   The memory returned from this can then be 'union'ed with the initialised memory from the start of the game.
 createProgramMaps :: [Int] -> [Program] -> Memory
 createProgramMaps [] [] = empty
 createProgramMaps (i:is) (p:ps) = M.union (fromList $ zip [i..] $ p) $ createProgramMaps is ps
+
 
 
 --getWarriorPositions is used to get a list of starting positions for 'n' warriors
@@ -83,11 +97,15 @@ getWarriorPositions n = do
               then return (fmap (* minWarriorStartPosDistance) positions)
               else getWarriorPositions n
 
+
+
 --getRands is used to get an infinite list of randomly generated numbers with a value between 1 and 'n'
 getRands :: Int -> IO [Int]
 getRands n = do
        g <- newStdGen
        return $ randomRs (1,n) g
+
+
 
 --getNRandoms is used to get a list of length 'max' of randomly generated numbers with a value between 1 and the 'n'
 getNRandoms :: Int -> Int -> IO [Int]
