@@ -11,4 +11,4 @@ Each warrior is a thread. Each thread has a list of instruction pointers, which 
 Each warrior has access to the logger (MVar). Only one of the warriors can take the logger at once.
 The logger is taken so that a warrior can print out the instruction it has just performed to the console.
 
-<img src="assets/core-wars-example.png"/>
+<img src="./assets/example.png"/>
