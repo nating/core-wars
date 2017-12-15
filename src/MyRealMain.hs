@@ -20,8 +20,7 @@ import System.Console.ANSI
 import System.Random
 import Data.List as L
 
---timeLimit = 50000000             --50 seconds
-timeLimit = 500000
+timeLimit = 50000000             --50 seconds
 memoryLength = 40                --Short for testing. (Standard is 8000)
 minWarriorStartPosDistance = 10  --Short for testing. (Standard is 1000)
 
@@ -46,7 +45,7 @@ The 'main':
    * prints out the final state of the MARS environment
 -}
 main1 = do
-       programs   <- parsePrograms ["program1.txt"]
+       programs   <- parsePrograms ["examples/program1.txt","examples/program1.txt","examples/program2.txt"]
        positions  <- getWarriorPositions (length programs)
        marsTV     <- atomically $ newTVar $ setUpMarsMemory programs positions memoryLength
        logger     <- newEmptyMVar
@@ -77,7 +76,7 @@ setUpMarsMemory ps positions len = M.union ( createProgramMaps positions ps ) $ 
 
 --createDatMemory is used to create the DAT initialised memory for the start of a core wars game
 createDatMemory :: Int -> Memory
-createDatMemory n = fromList $ zip [1..n] $ replicate n (OneFieldOp DAT (Immediate 0))
+createDatMemory n = fromList $ zip [0..n] $ replicate n (OneFieldOp DAT (Immediate 0))
 
 
 

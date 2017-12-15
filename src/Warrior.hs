@@ -108,11 +108,10 @@ mov i (Immediate v) f2 m = (addrAdd i 1 m,newMem)
     where 
         targetAddress = getFinalAddress i f2 m
         newMem = M.insert targetAddress (OneFieldOp DAT (Direct v)) m
-
 mov i f1 f2 m = (addrAdd i 1 m,newMem)
     where 
         targetAddress = getFinalAddress i f2 m
-        overwritingInstructionIdx = getFinalAddress i f1 m
+        overwritingInstructionIdx = addrAdd i (getFieldValue f1) m
         overwritingInstruction = fromJust $ M.lookup overwritingInstructionIdx m
         newMem = M.insert targetAddress overwritingInstruction m
 
@@ -147,7 +146,7 @@ sub i f1 f2 m = (addrAdd i 1 m,newMem)
 -}
 jmz :: Int -> Field -> Field -> Memory -> (Int,Memory)
 jmz i f1 f2 m = if (getFieldValue f2)==0 
-    then (addrAdd i (getFinalAddress i f1 m) m,m)
+    then (addrAdd i (getAddress (getFieldValue f1) m) m,m)
     else (addrAdd i 1 m,m)
 
 {-
@@ -155,7 +154,7 @@ jmz i f1 f2 m = if (getFieldValue f2)==0
 -}
 jmn :: Int -> Field -> Field -> Memory -> (Int,Memory)
 jmn i f1 f2 m = if (getFieldValue f2) /= 0 
-    then (addrAdd i (getFinalAddress i f1 m) m,m)
+    then (addrAdd i (getAddress (getFieldValue f1) m) m,m)
     else (addrAdd i 1 m,m)
 
 {-
@@ -170,7 +169,7 @@ djn i f1 f2 m = if ((getFieldValue f2)-1) /= 0
     cmp: Compares the values indicated by the A and B-Fields and skips the next instruction if they are not equal.
 -}
 cmp :: Int -> Field -> Field -> Memory -> (Int,Memory)
-cmp i f1 f2 m = if (getFieldValue $ getBField $ fromJust $ M.lookup (getFinalAddress i f1 m) m)==(getFieldValue $ getBField $ fromJust $ M.lookup (getFinalAddress i f2 m) m)
+cmp i f1 f2 m = if (getFieldValue f1)==(getFieldValue f2)
     then (addrAdd i 1 m,m)
     else (addrAdd i 2 m,m)
 
@@ -181,7 +180,7 @@ getFinalAddress :: Int -> Field -> Memory -> Int
 getFinalAddress i (Direct v) m        = getAddress i m
 getFinalAddress i (Immediate v) m     = getAddress i m
 getFinalAddress i (Indirect v) m      = getAddress (addrAdd i v m) m
-getFinalAddress i (AutoDecrement v) m = getAddress ((addrAdd i v m)-1) m
+getFinalAddress i (AutoDecrement v) m = (getAddress (addrAdd i v m) m)-1 
 
 --get Address is used to get the index of the instruction that the instruction at this index is pointing to.
 getAddress :: Int -> Memory -> Int

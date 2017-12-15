@@ -35,15 +35,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-`1.MOV #0, 1`<br>`2.DAT 0`|`1.MOV #0, 1`<br>`2.MOV #0, 1`
-
-### Test DJN when caused to jump
-
-"Decrements the value indicated by the B-Field and then jumps to the instruction indicated by the A-Field if the number indicated by the B-Field has become non-zero."
-
-Instruction|Desired Effect
----|---
-`1.DJN 2, 0`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 3.
+`1.MOV 0, 1`<br>`2.DAT 0`|`1.MOV #0, 1`<br>`2.MOV #0, 1`
 
 ### Test DJN when not caused to jump
 
@@ -51,7 +43,15 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-`1.DJN 2, 1`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 2.
+`1.DJN 2, 0`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 2.
+
+### Test DJN when caused to jump
+
+"Decrements the value indicated by the B-Field and then jumps to the instruction indicated by the A-Field if the number indicated by the B-Field has become non-zero."
+
+Instruction|Desired Effect
+---|---
+`1.DJN 2, 1`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 1.
 
 ### Test CMP with equal values in the A-Field and B-Field
 
@@ -83,7 +83,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-`1.JMP 2, 0`<br>`2.DAT 0`<br>`3.MOV 0, #0`|The next instruction executed is instruction 3.
+`1.JMZ 2, 0`<br>`2.DAT 0`<br>`3.MOV 0, #0`|The next instruction executed is instruction 3.
 
 ### Test JMZ without zero value in the B-Field
 
@@ -91,7 +91,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-`1.JMP 2, 1`<br>`2.DAT 0`<br>`3.MOV 0, #0`|The next instruction executed is instruction 2.
+`1.JMZ 2, 1`<br>`2.DAT 0`<br>`3.MOV 0, #0`|The next instruction executed is instruction 2.
 
 ### Test SUB
 

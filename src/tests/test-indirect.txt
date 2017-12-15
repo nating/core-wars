@@ -1,4 +1,4 @@
 ADD #1, @2
-DAT 0,
+DAT 0
 MOV 0, #1
 MOV 0, #1
