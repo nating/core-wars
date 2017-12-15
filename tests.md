@@ -11,7 +11,7 @@ For each test only the first instruction is run, to see if the desired effect wa
 
 Instruction|Desired Effect
 ---|---
-<code>1.ADD 1, 1<br>2.MOV 0, #0</code>|<code>1.ADD 1, 1<br>2.MOV 0, #1</code>
+`1.ADD 1, 1`<br>`2.MOV 0, #0`|`1.ADD 1, 1`<br>`2.MOV 0, #1`
 
 ### Test DAT
 
@@ -19,7 +19,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.DAT 0</code>|Task is killed
+`1.DAT 0`|Task is killed
 
 ### Test MOV with an immediate A-Field
 
@@ -27,7 +27,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.MOV #1, 1<br>2.MOV 0, #1</code>|<code>1.MOV #1, 1<br>2.DAT 1</code>
+`1.MOV #1, 1`<br>`2.MOV 0, #1`|`1.MOV #1, 1`<br>`2.DAT 1`
 
 ### Test MOV without an immediate A-Field
 
@@ -35,7 +35,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.MOV #0, 1<br>2.DAT 0</code>|<code>1.MOV #0, 1<br>2.MOV #0, 1</code>
+`1.MOV #0, 1`<br>`2.DAT 0`|`1.MOV #0, 1`<br>`2.MOV #0, 1`
 
 ### Test DJN when caused to jump
 
@@ -43,7 +43,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.DJN 2, 0<br>2.DAT 0<br>3.MOV 0, #1</code>|The next instruction executed is instruction 3.
+`1.DJN 2, 0`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 3.
 
 ### Test DJN when not caused to jump
 
@@ -51,7 +51,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.DJN 2, 1<br>2.DAT 0<br>3.MOV 0, #1</code>|The next instruction executed is instruction 2.
+`1.DJN 2, 1`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 2.
 
 ### Test CMP with equal values in the A-Field and B-Field
 
@@ -59,7 +59,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.CMP 0, 0<br>2.DAT 0<br>3.MOV 0, #1</code>|The next instruction executed is instruction 2.
+`1.CMP 0, 0`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 2.
 
 ### Test CMP without equal values in the A-Field and B-Field
 
@@ -67,7 +67,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.CMP 0, 1<br>2.DAT 0<br>3.MOV 0, #1</code>|The next instruction executed is instruction 3.
+`1.CMP 0, 1`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 3.
 
 ### Test SPL
 
@@ -75,7 +75,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.SPL 2<br>2.DAT 0<br>3.MOV 0, #1</code>|The warrior is split to have another task. The next instruction executed is instruction 3 and then instruction 2.
+`1.SPL 2`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The warrior is split to have another task. The next instruction executed is instruction 3 and then instruction 2.
 
 ### Test JMZ with zero value in the B-Field
 
@@ -83,7 +83,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.JMP 2, 0<br>2.DAT 0<br>3.MOV 0, #0</code>|The next instruction executed is instruction 3.
+`1.JMP 2, 0`<br>`2.DAT 0`<br>`3.MOV 0, #0`|The next instruction executed is instruction 3.
 
 ### Test JMZ without zero value in the B-Field
 
@@ -91,7 +91,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.JMP 2, 1<br>2.DAT 0<br>3.MOV 0, #0</code>|The next instruction executed is instruction 2.
+`1.JMP 2, 1`<br>`2.DAT 0`<br>`3.MOV 0, #0`|The next instruction executed is instruction 2.
 
 ### Test SUB
 
@@ -99,7 +99,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.SUB 1, 1<br>2.MOV 0, #0</code>|<code>1.SUB 1, 1<br>2.MOV 0, #-1</code>
+`1.SUB 1, 1`<br>`2.MOV 0, #0`|`1.SUB 1, 1`<br>`2.MOV 0, #-1`
 
 ### Test JMP
 
@@ -107,7 +107,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.JMP 2<br>2.MOV 0, #0<br>3.DAT 0</code>|The next instruction executed is instruction 3.
+`1.JMP 2`<br>`2.MOV 0, #0`<br>`3.DAT 0`|The next instruction executed is instruction 3.
 
 ### Test JMN with zero valued B-Field
 
@@ -115,7 +115,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.JMN 2, 0<br>2.DAT 0<br>3.MOV 0, #1</code>|The next instruction executed is instruction 2.
+`1.JMN 2, 0`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 2.
 
 ### Test JMN with non-zero valued B-Field
 
@@ -123,7 +123,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.JMN 2, 1<br>2.DAT 0<br>3.MOV 0, #1</code>|The next instruction executed is instruction 3.
+`1.JMN 2, 1`<br>`2.DAT 0`<br>`3.MOV 0, #1`|The next instruction executed is instruction 3.
 
 ### Test that Direct addressing works
 
@@ -131,7 +131,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.ADD #1, 2<br>2.MOV 0, #1<br>3.MOV 0, #1<code/>|<code>1.ADD #1, 2<br>2.MOV 0, #1<br>3.MOV 0, #2</code>
+`1.ADD #1, 2`<br>`2.MOV 0, #1`<br>`3.MOV 0, #1`|`1.ADD #1, 2`<br>`2.MOV 0, #1`<br>`3.MOV 0, #2`
 
 ### Test that Indirect addressing works
 
@@ -139,7 +139,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.ADD #1, @2<br>2.DAT #0<br>3.MOV 0, #1<br>4.MOV 0, #1<code/>|<code>1.ADD #1, @2<br>2.DAT #0<br>3.MOV 0, #1<br>4.MOV 0, #2</code>
+`1.ADD #1, @2`<br>`2.DAT #0`<br>`3.MOV 0, #1`<br>`4.MOV 0, #1`|`1.ADD #1, @2`<br>`2.DAT #0`<br>`3.MOV 0, #1`<br>`4.MOV 0, #2`
 
 ### Test that Immediate addressing works
 
@@ -147,7 +147,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.ADD #1, #2<br>2.DAT #0<br>3.MOV 0, #1<code/>|<code>1.ADD #1, #2<br>2.DAT #0<br>3.MOV 0, #2</code>
+`1.ADD #1, #2`<br>`2.DAT #0`<br>`3.MOV 0, #1`|`1.ADD #1, #2`<br>`2.DAT #0`<br>`3.MOV 0, #2`
 
 ### Test that AutoDecrement addressing works
 
@@ -155,4 +155,4 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-<code>1.ADD #1, <2<br>2.DAT #0<br>3.MOV 0, #2<br>4.MOV 0, #2<code/>|<code>1.ADD #1, <2<br>2.DAT #0<br>3.MOV 0, #2<br>4.MOV 0, #3</code>
+`1.ADD #1, <2`<br>`2.DAT #0`<br>`3.MOV 0, #2`<br>`4.MOV 0, #2`|`1.ADD #1, <2`<br>`2.DAT #0`<br>`3.MOV 0, #2`<br>`4.MOV 0, #3`
