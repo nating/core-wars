@@ -139,7 +139,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-`1.ADD #1, @2`<br>`2.DAT #0`<br>`3.MOV 0, #1`<br>`4.MOV 0, #1`|`1.ADD #1, @2`<br>`2.DAT #0`<br>`3.MOV 0, #1`<br>`4.MOV 0, #2`
+`1.ADD #1, @2`<br>`2.DAT 0`<br>`3.MOV 0, #1`<br>`4.MOV 0, #1`|`1.ADD #1, @2`<br>`2.DAT 0`<br>`3.MOV 0, #1`<br>`4.MOV 0, #2`
 
 ### Test that Immediate addressing works
 
@@ -147,7 +147,7 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-`1.ADD #1, #2`<br>`2.DAT #0`<br>`3.MOV 0, #1`|`1.ADD #1, #2`<br>`2.DAT #0`<br>`3.MOV 0, #2`
+`1.ADD #1, #2`<br>`2.DAT 0`<br>`3.MOV 0, #1`|`1.ADD #1, #2`<br>`2.DAT 0`<br>`3.MOV 0, #2`
 
 ### Test that AutoDecrement addressing works
 
@@ -155,4 +155,4 @@ Instruction|Desired Effect
 
 Instruction|Desired Effect
 ---|---
-`1.ADD #1, <2`<br>`2.DAT #0`<br>`3.MOV 0, #2`<br>`4.MOV 0, #2`|`1.ADD #1, <2`<br>`2.DAT #0`<br>`3.MOV 0, #2`<br>`4.MOV 0, #3`
+`1.ADD #1, <2`<br>`2.DAT 0`<br>`3.MOV 0, #2`<br>`4.MOV 0, #2`|`1.ADD #1, <2`<br>`2.DAT 0`<br>`3.MOV 0, #2`<br>`4.MOV 0, #3`
