@@ -19,7 +19,7 @@ import Data.Maybe
 import System.Console.ANSI
 import Data.Hashable
 
-warriorWaitTime = 1000000 --1s. This slows the game down, so users can read what is going on in the game. Warriors wait before executing their next instruction.
+warriorWaitTime = 500000 --1s. This slows the game down, so users can read what is going on in the game. Warriors wait before executing their next instruction.
 
 
 ------------------------------------WARRIOR TURNS--------------------------------------------

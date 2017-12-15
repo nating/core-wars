@@ -20,7 +20,7 @@ import System.Console.ANSI
 import System.Random
 import Data.List as L
 
-timeLimit = 50000000             --50 seconds
+timeLimit = 25000000             --25 seconds
 memoryLength = 40                --Short for testing. (Standard is 8000)
 minWarriorStartPosDistance = 10  --Short for testing. (Standard is 1000)
 

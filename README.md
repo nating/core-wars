@@ -1,101 +1,14 @@
-# Interactive Shape Server
+# Core Wars
 
-An Interactive SVG Shape Server written in Haskell using the [Scotty](https://hackage.haskell.org/package/scotty) & [Blaze-SVG](https://hackage.haskell.org/package/blaze-svg) Web eDSL languages.  
+A version of Core Wars written in Haskell.
 
-<img src="/assets/screenshot.png" />
+The program reads in warriors 'programs' from files and places them apart in an initialised MARS (cyclical array of instructions).
 
-## Requirements
-This project requires the [Haskell Tool Stack](https://docs.haskellstack.org/en/stable/README/) to run.  
+The MARS environment is a Map of integers to Instructions. It is stored in the Mars TVar, which all the warriors have access to.
 
-To download the Haskell Tool Stack on Unix, you can run:
-```
-curl -sSL https://get.haskellstack.org/ | sh
-```
+Each warrior is a thread. Each thread has a list of instruction pointers, which correspond to where each of its tasks are.
 
-## Installation
+Each warrior has access to the logger (MVar). Only one of the warriors can take the logger at once.
+The logger is taken so that a warrior can print out the instruction it has just performed to the console.
 
-To install The Interactive Shape Server:
-
-* Clone this repository:
-```
-git clone https://nating/interactive-shape-server.git
-```
-
-* Navigate into the repository's folder & setup stack:
-```
-cd interactive-shape-server && stack setup
-```
-
-* Build the project:
-```
-stack build
-```
-
-## Usage
-
-To run the server, use the command:
-```
-stack exec interactive-shape-server
-```
-
-You can now interact with SVG shapes from your browser at `localhost:3000`.
-
-## SVG Shape Description
-
-An index page with a text-area input is served at localhost:3000 by the Interactive Shape Server where you can describe shapes and their styles and transformations.
-
-Accepted input for describing the SVG shapes is to be of the form:
-```
-'['
-'(' Shape ',' Transform ',' Style ')'
- { ',' '(' Shape ',' Transform ',' Style ')' }
-']'
-```
-*Shapes, Transforms and Styles are defined below.*
-
-### Shapes
-
-Supported shapes:
-* `Empty`
-* `Rect`
-* `Circle`
-
-### Transforms
-
-Supported Transforms:
-* `Identity`
-* `Translate <Double> <Double>`
-* `Scale <Double> <Double>`
-* `Rotate <Double>`
-* `SkewX <Double>`
-* `SkewY <Double>`
-* `Compose (<Transform>) (<Transform>)`
-
-### Styles
-
-Supported Styles:
-* `Fill <Color>`
-* `FillOpacity <Double>`
-* `StrokeWidth <Double>`
-* `StrokeColor <Color>`
-* `StyleCompose (<Style>) (<Style>)`
-
-### Colors
-
-Supported Colors:
-* `Black`
-* `White`
-* `Blue`
-* `Green`
-* `Red`
-* `Silver`
-* `Gray`
-* `Yellow`
-* `Maroon`
-* `Olive`
-* `Lime`
-* `Aqua`
-* `Teal`
-* `Navy`
-* `Fuchsia`
-* `Purple`
+<img src="assets/core-wars-example.png"/>
