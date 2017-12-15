@@ -1,10 +1,9 @@
-
-
 {-
-This function performs an instruction from the memory
+RedCode.hs
 
-It gets the current address of the thread, and does the action indicated by the instruction at that address
+Created by Geoffrey Natin on 9/12/2017
 
+https://github.com/nating/core-wars/src/RedCode.hs
 -}
 
 module RedCode where
@@ -18,22 +17,27 @@ import Data.Maybe
 import System.Console.ANSI
 import Data.Hashable
 
-takeRedcodeTurn :: [Int] -> Mars -> (MVar String) -> IO ()
-takeRedcodeTurn (i:ips) mars l = do
-    (inst,newIPList) <- atomically $ takeRedcodeTurn' (i:ips) mars
+warriorWaitTime = 1000000 --This slows the game down, so users can read what is going on in the game. Warriors wait before executing their next instruction.
+
+{-
+    take
+-}
+takeTurns :: [Int] -> Mars -> (MVar String) -> IO ()
+takeTurns (i:ips) mars l = do
+    (inst,newIPList) <- atomically $ takeTurns' (i:ips) mars
     loggedTurns <- takeMVar l
     id <- myThreadId
     setSGR [SetColor Foreground Vivid (getThreadColor id)]
     putStrLn $ (show id)++" at location "++(show i)++"  |   "++(show inst)
-    threadDelay 1000000
+    threadDelay warriorWaitTime
     putMVar l "TODO"
-    takeRedcodeTurn newIPList mars l
-takeRedcodeTurn [] _ _ = do
+    takeTurns newIPList mars l
+takeTurns [] _ _ = do
     id <- myThreadId
     killThread id
 
-takeRedcodeTurn' :: [Int] -> Mars -> STM (Instruction,[Int])
-takeRedcodeTurn' (ip:ips) mars = do
+takeTurns' :: [Int] -> Mars -> STM (Instruction,[Int])
+takeTurns' (ip:ips) mars = do
     m <- (readTVar mars)
     let inst = getInstruction ip m
     let (nextIp,newMars) = performInstruction ip inst m

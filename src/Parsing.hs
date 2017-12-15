@@ -1,3 +1,11 @@
+{-
+Parsing.hs
+
+Created by Geoffrey Natin on 9/12/2017
+
+https://github.com/nating/core-wars/src/Parsing.hs
+-}
+
 
 module Parsing where
 
@@ -9,7 +17,7 @@ import DataTypes
 import Control.Concurrent
 import Data.Maybe
 
----------------------------------PARSING--------------------------------------------
+-----------------------------------------PARSING--------------------------------------------
 
 parsePrograms :: [String] -> IO [Program]
 parsePrograms x = sequence $ fmap parse x
@@ -19,9 +27,11 @@ parse s = do
         contents <- readFile s
         return $ readInstructions $ lines contents
 
+--Maybe change to readLines
 readInstructions :: [String] -> Program
 readInstructions x = fmap readInstruction x 
 
+--Maybe change to readLine
 readInstruction :: String -> Instruction
 readInstruction s = readParts $ words $ removeComments $ fmap toUpper s
 
