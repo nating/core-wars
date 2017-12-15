@@ -1,0 +1,30 @@
+name:                core-wars
+version:             0.1.0.0
+synopsis:            An implementation of core wars
+description:         An implementation of core wars
+homepage:            https://github.com/nating/core-wars
+license:             BSD3
+license-file:        LICENSE
+author:              Geoffrey Natin
+maintainer:          nating@tcd.ie
+copyright:           2017 Geoffrey Natin
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+extra-source-files:  README.md,
+                     stack.yaml,
+                     examples/program1.txt,
+                     examples/program2.txt
+
+executable core-wars
+  hs-source-dirs:      src
+  main-is:             Main.hs
+  other-modules:       DataTypes, Parsing, Warrior
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5,
+                       containers,
+                       stm,
+                       ansi-terminal,
+                       MissingH,
+                       hashable,
+                       random
